@@ -3,161 +3,111 @@ services:
   - type: web
     name: thunderchat-gateway
     runtime: node
-    buildCommand: pnpm install && pnpm build:gateway
-    startCommand: pnpm start:gateway
+    buildCommand: cd apps/gateway && npm install && npm run build
+    startCommand: cd apps/gateway && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
-      - key: JWT_SECRET
-        sync: false
-      - key: USER_AUTH_SERVICE_URL
-        value: https://thunderchat-user-auth.onrender.com
-      - key: CHAT_SERVICE_URL
-        value: https://thunderchat-chat.onrender.com
-      - key: CALL_SERVICE_URL
-        value: https://thunderchat-call.onrender.com
-      - key: SEARCH_SERVICE_URL
-        value: https://thunderchat-search.onrender.com
-      - key: NOTIFICATION_SERVICE_URL
-        value: https://thunderchat-notification.onrender.com
-      - key: CONVERSATION_SERVICE_URL
-        value: https://thunderchat-conversation.onrender.com
-      - key: MEDIA_SERVICE_URL
-        value: https://thunderchat-media.onrender.com
-      - key: ADMIN_SERVICE_URL
-        value: https://thunderchat-admin.onrender.com
 
   # User Auth Service
   - type: web
     name: thunderchat-user-auth
     runtime: node
-    buildCommand: pnpm install && pnpm build:user-auth
-    startCommand: pnpm start:user-auth
+    buildCommand: cd apps/user-auth-service && npm install && npm run build
+    startCommand: cd apps/user-auth-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
-      - key: JWT_SECRET
-        sync: false
 
   # Chat Service
   - type: web
     name: thunderchat-chat
     runtime: node
-    buildCommand: pnpm install && pnpm build:chat
-    startCommand: pnpm start:chat
+    buildCommand: cd apps/chat-service && npm install && npm run build
+    startCommand: cd apps/chat-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
 
   # Call Service
   - type: web
     name: thunderchat-call
     runtime: node
-    buildCommand: pnpm install && pnpm build:call
-    startCommand: pnpm start:call
+    buildCommand: cd apps/call-service && npm install && npm run build
+    startCommand: cd apps/call-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
-      - key: AGORA_APP_ID
-        sync: false
-      - key: AGORA_APP_CERTIFICATE
-        sync: false
 
   # Search Service
   - type: web
     name: thunderchat-search
     runtime: node
-    buildCommand: pnpm install && pnpm build:search
-    startCommand: pnpm start:search
+    buildCommand: cd apps/search-service && npm install && npm run build
+    startCommand: cd apps/search-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
-      - key: OPENAI_API_KEY
-        sync: false
 
   # Notification Service
   - type: web
     name: thunderchat-notification
     runtime: node
-    buildCommand: pnpm install && pnpm build:notification
-    startCommand: pnpm start:notification
+    buildCommand: cd apps/notification-service && npm install && npm run build
+    startCommand: cd apps/notification-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
 
   # Conversation Service
   - type: web
     name: thunderchat-conversation
     runtime: node
-    buildCommand: pnpm install && pnpm build:conversation
-    startCommand: pnpm start:conversation
+    buildCommand: cd apps/conversation-service && npm install && npm run build
+    startCommand: cd apps/conversation-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
 
   # Media Service
   - type: web
     name: thunderchat-media
     runtime: node
-    buildCommand: pnpm install && pnpm build:media
-    startCommand: pnpm start:media
+    buildCommand: cd apps/media-service && npm install && npm run build
+    startCommand: cd apps/media-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
-      - key: AWS_ACCESS_KEY_ID
-        sync: false
-      - key: AWS_SECRET_ACCESS_KEY
-        sync: false
-      - key: AWS_S3_BUCKET
-        sync: false
 
   # Admin Service
   - type: web
     name: thunderchat-admin
     runtime: node
-    buildCommand: pnpm install && pnpm build:admin
-    startCommand: pnpm start:admin
+    buildCommand: cd apps/admin-service && npm install && npm run build
+    startCommand: cd apps/admin-service && npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: DATABASE_URL
-        sync: false
 
-databases:
-  - name: thunderchat-db
-    databaseName: thunderchat
-    user: thunderchat
+  # PostgreSQL Database (Free tier)
+  - type: pgsql
+    name: thunderchat-db
+    ipAllowList: []
