@@ -1,0 +1,29 @@
+{
+  "name": "thunderchat-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:gateway": "pnpm --filter gateway build",
+    "build:user-auth": "pnpm --filter user-auth-service build",
+    "build:chat": "pnpm --filter chat-service build",
+    "build:call": "pnpm --filter call-service build",
+    "build:search": "pnpm --filter search-service build",
+    "build:notification": "pnpm --filter notification-service build",
+    "build:conversation": "pnpm --filter conversation-service build",
+    "build:media": "pnpm --filter media-service build",
+    "build:admin": "pnpm --filter admin-service build",
+    "build:all": "pnpm -r build",
+    "start:gateway": "pnpm --filter gateway start:prod",
+    "start:user-auth": "pnpm --filter user-auth-service start:prod",
+    "start:chat": "pnpm --filter chat-service start:prod",
+    "start:call": "pnpm --filter call-service start:prod",
+    "start:search": "pnpm --filter search-service start:prod",
+    "start:notification": "pnpm --filter notification-service start:prod",
+    "start:conversation": "pnpm --filter conversation-service start:prod",
+    "start:media": "pnpm --filter media-service start:prod",
+    "start:admin": "pnpm --filter admin-service start:prod"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  }
+}

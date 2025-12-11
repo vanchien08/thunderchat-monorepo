@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc FindUserWithProfileById(FindUserWithProfileByIdRequest)
+      returns (FindUserWithProfileByIdResponse);
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse);
+  rpc FindById(FindByIdRequest) returns (FindByIdResponse);
+  rpc findUsersForGlobalSearch(findUsersForGlobalSearchRq)
+      returns (findUsersForGlobalSearchRp);
+  rpc Test(TestRequest) returns (TestResponse);
+}
+
+message TestRequest {
+  string message_vcn_req = 1;
+}
+
+message TestResponse {
+  string message_vcn_res = 1;
+}
+
+service UserSettingsService {
+  rpc FindByUserId(FindByUserIdRequest) returns (FindByUserIdResponse);
+}
+
+service BlockUserService {
+  rpc CheckBlockedUser(CheckBlockedUserRequest)
+      returns (CheckBlockedUserResponse);
+}
+
+message FindUserWithProfileByIdRequest {
+  int32 user_id = 1;
+}
+
+message FindUserWithProfileByIdResponse {
+  string user_json = 1;
+}
+
+message FindByUserIdRequest {
+  int32 user_id = 1;
+}
+
+message FindByUserIdResponse {
+  string user_settings_json = 1;
+}
+
+message CheckBlockedUserRequest {
+  int32 blocker_id = 1;
+  int32 blocked_id = 2;
+}
+
+message CheckBlockedUserResponse {
+  optional string blocked_user_json = 1;
+}
+
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+message GetUserByEmailResponse {
+  string user_json = 1;
+}
+
+message FindByIdRequest {
+  int32 id = 1;
+}
+
+message FindByIdResponse {
+  string user_json = 1;
+}
+
+message findUsersForGlobalSearchRq {
+  repeated int32 ids = 1;
+  int32 self_user_id = 2;
+  int32 limit = 3;
+}
+
+message findUsersForGlobalSearchRp {
+  repeated string users_json = 1;
+}

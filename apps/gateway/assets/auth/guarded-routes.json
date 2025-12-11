@@ -1,0 +1,51 @@
+{
+  "services": {
+    "auth": {
+      "routes": [
+        { "path": "/auth/logout" },
+        { "path": "/auth/admin/logout" },
+        { "path": "/auth/check-auth" },
+        { "path": "/auth/admin/check-auth" }
+      ]
+    },
+    "user": {
+      "routes": [
+        { "path": "/user/search-users" },
+        { "path": "/user/change-password" },
+        { "path": "/user/block-user" },
+        { "path": "/user/check-blocked-user" },
+        { "path": "/user/unblock-user" },
+        { "path": "/user/get-blocked-users-list" },
+        { "path": "/user-settings" },
+        { "path": "/user-report/create-violation-report" },
+        { "path": "/profile" }
+      ]
+    },
+    "friendship": {
+      "routes": [{ "path": "/friend-request" }, { "path": "/friend" }]
+    },
+    "search": {
+      "routes": [{ "path": "/search" }, { "path": "/smart-search" }]
+    },
+    "media": {
+      "routes": [{ "path": "/media-message" }, { "path": "/sticker" }]
+    },
+    "conversation": {
+      "routes": [
+        { "path": "/direct-chat" },
+        { "path": "/group-chat" },
+        { "path": "/group-member" },
+        { "path": "/message" },
+        { "path": "/delete-message" },
+        { "path": "/pin" },
+        { "path": "/pin-conversation" }
+      ]
+    },
+    "notification": {
+      "routes": [{ "path": "/push-notification" }]
+    },
+    "voice-assistant": {
+      "routes": [{ "path": "/voice-assistant" }]
+    }
+  }
+}

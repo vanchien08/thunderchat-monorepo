@@ -1,0 +1,475 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["typedSql"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model MessageMapping {
+    id          Int      @id @default(autoincrement())
+    mappings    String
+    key         String   @db.VarChar(255)
+    dek         String   @db.VarChar(128)
+    versionCode String   @unique @map("version_code") @db.VarChar(128) // dek version code
+    createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    @@index([versionCode], type: BTree)
+    @@map("message_mappings")
+}
+
+model BlockedUser {
+    id            Int      @id @default(autoincrement())
+    blockerUserId Int      @map("blocker_user_id")
+    blockedUserId Int      @map("blocked_user_id")
+    createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    groupChatId   Int?     @map("group_chat_id")
+
+    UserBlocked User       @relation("BlockedUsers", fields: [blockedUserId], references: [id])
+    UserBlocker User       @relation("BlockedByUsers", fields: [blockerUserId], references: [id])
+    GroupChat   GroupChat? @relation("BlockedGroupChat", fields: [groupChatId], references: [id])
+
+    @@map("blocked_users")
+}
+
+model User {
+    id        Int      @id @default(autoincrement())
+    email     String   @unique @db.VarChar(255)
+    password  String   @db.VarChar(255)
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    role      AppRole  @default(USER)
+
+    Profile                       Profile?
+    DirectChatsAsSender           DirectChat[]                   @relation("DirectChatsAsSender")
+    DirectChatsAsRecipient        DirectChat[]                   @relation("DirectChatsAsRecipient")
+    Messages                      Message[]                      @relation("DirectMessagesAsSender")
+    FriendsAsRecipient            Friend[]                       @relation("FriendsAsRecipient")
+    FriendsAsSender               Friend[]                       @relation("FriendsAsSender")
+    FriendRequestsSent            FriendRequest[]                @relation("FriendRequestsSent")
+    FriendRequestsReceived        FriendRequest[]                @relation("FriendRequestsReceived")
+    DirectMessagesAsRecipient     Message[]                      @relation("DirectMessagesAsRecipient")
+    GroupChatCreator              GroupChat[]                    @relation("GroupChatCreator")
+    GroupChatMembers              GroupChatMember[]              @relation("GroupChatMembers")
+    PinnedMessages                PinnedMessage[]                @relation("PinnedMessagesByUser")
+    PinnedChats                   PinnedChat[]                   @relation("PinnedChatsByUser")
+    UserSettings                  UserSettings?                  @relation("UserToUserSettings")
+    ReportsMade                   ViolationReport[]              @relation("ReportsMade")
+    ReportsAbout                  ViolationReport[]              @relation("ReportsAbout")
+    BlockedUsers                  BlockedUser[]                  @relation("BlockedUsers")
+    BlockedByUsers                BlockedUser[]                  @relation("BlockedByUsers")
+    GroupChatMembersJoinedBy      GroupChatMember[]              @relation("GroupChatMembersJoinedBy")
+    GroupJoinRequest              GroupJoinRequest[]             @relation("UserRequests")
+    PushNotificationSubscriptions PushNotificationSubscription[] @relation("PushNotificationSubscriptions")
+    CallSessionsAsCaller          CallSession[]                  @relation("CallSessionsAsCaller")
+    CallSessionsAsCallee          CallSession[]                  @relation("CallSessionsAsCallee")
+
+    @@index([email], type: BTree)
+    @@map("users")
+}
+
+model Profile {
+    id        Int       @id @default(autoincrement())
+    fullName  String    @map("full_name") @db.VarChar(255)
+    birthday  DateTime? @db.Date
+    about     String?
+    avatar    String?
+    userId    Int       @unique @map("user_id")
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    User User @relation(fields: [userId], references: [id])
+
+    @@map("profiles")
+}
+
+model DirectChat {
+    id                Int      @id @default(autoincrement())
+    creatorId         Int      @map("creator_id")
+    recipientId       Int      @map("recipient_id")
+    createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    lastSentMessageId Int?     @unique @map("last_sent_message_id")
+
+    Recipient       User            @relation("DirectChatsAsRecipient", fields: [recipientId], references: [id])
+    Creator         User            @relation("DirectChatsAsSender", fields: [creatorId], references: [id])
+    Messages        Message[]       @relation("MessagesOnDirectChat")
+    LastSentMessage Message?        @relation("LastSentMessageOnDirectChat", fields: [lastSentMessageId], references: [id])
+    PinnedMessages  PinnedMessage[] @relation("PinnedMessagesOnDirectChat")
+    PinnedChats     PinnedChat[]    @relation("PinnedChatsOnDirectChat")
+    CallSessions    CallSession[]   @relation("CallSessionsOnDirectChat")
+
+    @@unique([creatorId, recipientId])
+    @@map("direct_chats")
+}
+
+model PinnedChat {
+    id           Int      @id @default(autoincrement())
+    directChatId Int?     @map("direct_chat_id")
+    groupChatId  Int?     @map("group_chat_id")
+    pinnedBy     Int      @map("pinned_by")
+    pinnedAt     DateTime @default(now()) @map("pinned_at") @db.Timestamptz(3)
+
+    DirectChat DirectChat? @relation("PinnedChatsOnDirectChat", fields: [directChatId], references: [id])
+    GroupChat  GroupChat?  @relation("PinnedChatsOnGroupChat", fields: [groupChatId], references: [id])
+    PinnedBy   User        @relation("PinnedChatsByUser", fields: [pinnedBy], references: [id])
+
+    @@map("pinned_chats")
+}
+
+model Message {
+    id             Int               @id @default(autoincrement())
+    content        String
+    authorId       Int               @map("author_id")
+    recipientId    Int?              @map("recipient_id")
+    directChatId   Int?              @map("direct_chat_id")
+    groupChatId    Int?              @map("group_chat_id")
+    type           MessageType       @default(TEXT)
+    status         MessageStatusEnum
+    stickerId      Int?              @map("sticker_id")
+    createdAt      DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+    replyToId      Int?              @map("reply_to_id")
+    isDeleted      Boolean           @default(false) @map("is_deleted")
+    isViolated     Boolean           @default(false) @map("is_violated")
+    mediaId        Int?              @map("media_id")
+    dek            String            @db.VarChar(128)
+    dekVersionCode String            @map("dek_version_code") @db.VarChar(128)
+
+    DirectChat              DirectChat?       @relation("MessagesOnDirectChat", fields: [directChatId], references: [id])
+    Author                  User              @relation("DirectMessagesAsSender", fields: [authorId], references: [id])
+    DirectChatOfLastSentMsg DirectChat?       @relation("LastSentMessageOnDirectChat")
+    Sticker                 Sticker?          @relation("StickerOnMessage", fields: [stickerId], references: [id])
+    Recipient               User?             @relation("DirectMessagesAsRecipient", fields: [recipientId], references: [id])
+    ReplyTo                 Message?          @relation("RepliesOnMessage", fields: [replyToId], references: [id])
+    RepliedBy               Message[]         @relation("RepliesOnMessage")
+    PinnedMessages          PinnedMessage[]   @relation("PinnedMessagesOnMessage")
+    ReportedMessages        ReportedMessage[] @relation("ReportedMessageOnMessage")
+    Media                   MessageMedia?     @relation("MessageMediaOnMessage", fields: [mediaId], references: [id])
+    GroupChat               GroupChat?        @relation("MessagesOnGroupChat", fields: [groupChatId], references: [id])
+    GroupChatOfLastSentMsg  GroupChat?        @relation("LastSentMessageOnGroupChat")
+
+    @@map("messages")
+}
+
+model MessageMedia {
+    id             Int              @id @default(autoincrement())
+    url            String           @unique @map("url")
+    fileSize       Int              @map("file_size")
+    fileName       String           @map("file_name")
+    fileType       String           @map("file_type")
+    thumbnailUrl   String           @map("thumbnail_url")
+    type           MessageMediaType
+    createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+    dek            String           @db.VarChar(128) // base64
+    iv             String           @db.VarChar(128) // base64
+    authTag        String           @map("auth_tag") @db.VarChar(128) // base64
+    dekVersionCode String           @map("dek_version_code") @db.VarChar(128)
+
+    Message Message[] @relation("MessageMediaOnMessage")
+
+    @@index([url], type: BTree)
+    @@map("message_medias")
+}
+
+model PinnedMessage {
+    id           Int      @id @default(autoincrement())
+    messageId    Int      @map("message_id")
+    directChatId Int?     @map("direct_chat_id")
+    groupChatId  Int?     @map("group_chat_id")
+    pinnedBy     Int      @map("pinned_by")
+    pinnedAt     DateTime @default(now()) @map("pinned_at") @db.Timestamptz(3)
+
+    DirectChat DirectChat? @relation("PinnedMessagesOnDirectChat", fields: [directChatId], references: [id])
+    Message    Message     @relation("PinnedMessagesOnMessage", fields: [messageId], references: [id])
+    PinnedBy   User        @relation("PinnedMessagesByUser", fields: [pinnedBy], references: [id])
+    GroupChat  GroupChat?  @relation("PinnedMessagesOnGroupChat", fields: [groupChatId], references: [id])
+
+    @@map("pinned_messages")
+}
+
+model Friend {
+    id          Int      @id @default(autoincrement())
+    recipientId Int      @map("recipient_id")
+    senderId    Int      @map("sender_id")
+    createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    Recipient User @relation("FriendsAsRecipient", fields: [recipientId], references: [id])
+    Sender    User @relation("FriendsAsSender", fields: [senderId], references: [id])
+
+    @@map("friends")
+}
+
+model FriendRequest {
+    id          Int                  @id @default(autoincrement())
+    senderId    Int                  @map("sender_id")
+    recipientId Int                  @map("recipient_id")
+    status      FriendRequestsStatus
+    createdAt   DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt   DateTime             @default(now()) @map("updated_at") @db.Timestamptz(3)
+
+    Sender    User @relation("FriendRequestsSent", fields: [senderId], references: [id])
+    Recipient User @relation("FriendRequestsReceived", fields: [recipientId], references: [id])
+
+    @@map("friend_requests")
+}
+
+model Sticker {
+    id          Int      @id @default(autoincrement())
+    stickerName String   @map("sticker_name") @db.VarChar(50)
+    imageUrl    String   @unique @map("image_url") @db.VarChar(255)
+    categoryId  Int      @map("category_id")
+    createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    Messages Message[]       @relation("StickerOnMessage")
+    Category StickerCategory @relation(fields: [categoryId], references: [id])
+
+    @@map("stickers")
+}
+
+model StickerCategory {
+    id           Int      @id @default(autoincrement())
+    idName       String   @unique @map("id_name") @db.VarChar(255)
+    thumbnailUrl String   @unique @map("thumbnail_url") @db.VarChar(255)
+    name         String   @db.VarChar(50)
+    createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+    Stickers Sticker[]
+
+    @@index([idName], type: BTree)
+    @@map("sticker_categories")
+}
+
+model GroupChatPermission {
+    id              Int     @id @default(autoincrement())
+    groupChatId     Int     @unique @map("group_chat_id")
+    sendMessage     Boolean @default(true) @map("send_message")
+    pinMessage      Boolean @default(true) @map("pin_message")
+    shareInviteCode Boolean @default(true) @map("share_invite_code")
+    updateInfo      Boolean @default(false) @map("update_info")
+
+    GroupChat GroupChat @relation(fields: [groupChatId], references: [id])
+
+    @@map("group_chat_permissions")
+}
+
+model GroupChat {
+    id                Int      @id @default(autoincrement())
+    name              String   @db.VarChar(255)
+    creatorId         Int      @map("creator_id")
+    avatarUrl         String?  @map("avatar_url")
+    createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    lastSentMessageId Int?     @unique @map("last_sent_message_id")
+    inviteCode        String?  @unique @map("invite_code")
+
+    Messages            Message[]            @relation("MessagesOnGroupChat")
+    Creator             User                 @relation("GroupChatCreator", fields: [creatorId], references: [id])
+    Members             GroupChatMember[]    @relation("GroupChatMembers")
+    LastSentMessage     Message?             @relation("LastSentMessageOnGroupChat", fields: [lastSentMessageId], references: [id])
+    PinnedMessages      PinnedMessage[]      @relation("PinnedMessagesOnGroupChat")
+    PinnedChats         PinnedChat[]         @relation("PinnedChatsOnGroupChat")
+    BlockedUsers        BlockedUser[]        @relation("BlockedGroupChat")
+    GroupChatPermission GroupChatPermission?
+    GroupJoinRequest    GroupJoinRequest[]
+
+    @@map("group_chats")
+}
+
+model GroupJoinRequest {
+    id          Int               @id @default(autoincrement())
+    groupChatId Int               @map("group_chat_id")
+    userId      Int               @map("user_id")
+    status      JoinRequestStatus @default(PENDING)
+    createdAt   DateTime          @default(now()) @map("created_at")
+
+    GroupChat GroupChat @relation(fields: [groupChatId], references: [id])
+    Requester User      @relation("UserRequests", fields: [userId], references: [id])
+
+    @@map("group_join_requests")
+}
+
+model GroupChatMember {
+    id          Int           @id @default(autoincrement())
+    groupChatId Int           @map("group_chat_id")
+    userId      Int           @map("user_id")
+    joinedBy    Int           @map("joined_by")
+    joinedAt    DateTime      @default(now()) @map("joined_at") @db.Timestamptz(3)
+    role        GroupChatRole @default(MEMBER)
+
+    GroupChat GroupChat @relation("GroupChatMembers", fields: [groupChatId], references: [id])
+    User      User      @relation("GroupChatMembers", fields: [userId], references: [id])
+    JoinedBy  User?     @relation("GroupChatMembersJoinedBy", fields: [joinedBy], references: [id])
+
+    @@unique([groupChatId, userId])
+    @@map("group_chat_members")
+}
+
+model UserSettings {
+    id                       Int     @id @default(autoincrement())
+    userId                   Int     @unique @map("user_id")
+    onlyReceiveFriendMessage Boolean @default(false) @map("only_receive_friend_message")
+    pushNotificationEnabled  Boolean @default(false) @map("push_notification_enabled")
+
+    User User @relation("UserToUserSettings", fields: [userId], references: [id])
+
+    @@map("user_settings")
+}
+
+model ViolationReport {
+    id             Int            @id @default(autoincrement())
+    reporterUserId Int            @map("reporter_user_id")
+    reportedUserId Int            @map("reported_user_id")
+    reportCategory ReportCategory @map("report_category")
+    reasonText     String?        @map("reason_text")
+    reportStatus   ReportStatus   @default(PENDING) @map("report_status")
+    createdAt      DateTime       @default(now()) @map("created_at")
+
+    ReporterUser     User              @relation("ReportsMade", fields: [reporterUserId], references: [id])
+    ReportedUser     User              @relation("ReportsAbout", fields: [reportedUserId], references: [id])
+    Actions          ViolationAction[] @relation("ReportActions")
+    ReportImages     ReportImage[]     @relation("ReportImages")
+    ReportedMessages ReportedMessage[] @relation("ReportedMessages")
+
+    @@map("violation_reports")
+}
+
+model ReportImage {
+    id       Int    @id @default(autoincrement())
+    reportId Int    @map("report_id")
+    imageUrl String @map("image_url")
+
+    Report ViolationReport @relation("ReportImages", fields: [reportId], references: [id])
+
+    @@map("report_images")
+}
+
+model ViolationAction {
+    id           Int                 @id @default(autoincrement())
+    actionReason String              @map("action_reason")
+    actionType   ViolationActionType @map("action_type")
+    bannedUntil  DateTime?           @map("banned_until")
+    reportId     Int                 @unique @map("report_id")
+    createdAt    DateTime            @default(now()) @map("created_at")
+
+    Report ViolationReport @relation("ReportActions", fields: [reportId], references: [id])
+
+    @@map("violation_actions")
+}
+
+model ReportedMessage {
+    id             Int                 @id @default(autoincrement())
+    messageId      Int                 @map("message_id")
+    messageType    ReportedMessageType @map("message_type")
+    messageContent String              @map("message_content")
+    reportId       Int                 @map("report_id")
+    createdAt      DateTime            @default(now()) @map("created_at")
+
+    ReportedMessage Message         @relation("ReportedMessageOnMessage", fields: [messageId], references: [id])
+    ViolationReport ViolationReport @relation("ReportedMessages", fields: [reportId], references: [id])
+
+    @@map("reported_messages")
+}
+
+model PushNotificationSubscription {
+    id             Int       @id @default(autoincrement())
+    userId         Int       @map("user_id")
+    endpoint       String    @unique
+    p256dh         String
+    auth           String
+    expirationTime DateTime? @map("expiration_time")
+    createdAt      DateTime  @default(now()) @map("created_at")
+
+    User User @relation("PushNotificationSubscriptions", fields: [userId], references: [id])
+
+    @@index([userId], type: BTree)
+    @@map("push_notification_subscriptions")
+}
+
+model CallSession {
+    id           String    @id @default(uuid()) @db.Uuid
+    directChatId Int?      @map("direct_chat_id")
+    callerUserId Int       @map("caller_user_id")
+    calleeUserId Int       @map("callee_user_id")
+    status       String?   @default("REQUESTING")
+    isVideoCall  Boolean   @default(false)
+    createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+    endedAt      DateTime? @map("ended_at") @db.Timestamptz(3)
+    hangupReason String?   @map("hangup_reason")
+
+    DirectChat DirectChat? @relation("CallSessionsOnDirectChat", fields: [directChatId], references: [id])
+    Caller     User        @relation("CallSessionsAsCaller", fields: [callerUserId], references: [id])
+    Callee     User        @relation("CallSessionsAsCallee", fields: [calleeUserId], references: [id])
+
+    @@index([callerUserId])
+    @@index([calleeUserId])
+    @@map("call_sessions")
+}
+
+enum ReportedMessageType {
+    TEXT
+    STICKER
+    IMAGE
+    VIDEO
+    AUDIO
+    DOCUMENT
+    
+}
+
+enum FriendRequestsStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+}
+
+enum MessageStatusEnum {
+    SENT
+    SEEN
+}
+
+enum MessageType {
+    TEXT
+    STICKER
+    MEDIA
+    PIN_NOTICE
+    NOTIFY
+}
+
+enum GroupChatRole {
+    ADMIN
+    MEMBER
+}
+
+enum AppRole {
+    USER
+    ADMIN
+}
+
+enum ReportCategory {
+    SENSITIVE_CONTENT
+    BOTHER
+    FRAUD
+    OTHER
+}
+
+enum ReportStatus {
+    PENDING
+    RESOLVED
+    DISMISSED
+}
+
+enum ViolationActionType {
+    WARNING
+    TEMPORARY_BAN
+    PERMANENT_BAN
+}
+
+enum MessageMediaType {
+    IMAGE
+    VIDEO
+    AUDIO
+    DOCUMENT
+}
+
+enum JoinRequestStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}

@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package conversation;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service DirectChatService {
+  rpc FindConversationWithOtherUser(FindConversationWithOtherUserRequest)
+      returns (FindConversationWithOtherUserResponse);
+  rpc CreateNewDirectChat(CreateNewDirectChatRequest)
+      returns (CreateNewDirectChatResponse);
+  rpc UpdateLastSentMessage(UpdateLastSentMessageRequest)
+      returns (google.protobuf.Empty);
+  rpc findById(FindDirectChatByIdRequest) returns (FindDirectChatByIdResponse);
+}
+
+service GroupMemberService {
+  rpc FindMemberInGroupChat(FindMemberInGroupChatRequest)
+      returns (FindMemberInGroupChatResponse);
+  rpc FindGroupChatMemberIds(FindGroupChatMemberIdsRequest)
+      returns (FindGroupChatMemberIdsResponse);
+}
+
+service MessageService {
+  rpc GetNewerDirectMessages(GetNewerDirectMessagesRequest)
+      returns (GetNewerDirectMessagesResponse);
+  rpc CreateNewMessage(CreateNewMessageRequest)
+      returns (CreateNewMessageResponse);
+  rpc UpdateMessageStatus(UpdateMessageStatusRequest)
+      returns (UpdateMessageStatusResponse);
+  rpc FindMessagesForGlobalSearch(FindMessagesForGlobalSearchRequest)
+      returns (FindMessagesForGlobalSearchResponse);
+}
+
+service GroupChatService {
+  rpc CheckGroupChatPermission(CheckGroupChatPermissionRequest)
+      returns (CheckGroupChatPermissionResponse);
+}
+
+message GetNewerDirectMessagesRequest {
+  int32 message_offset = 1;
+  optional int32 direct_chat_id = 2;
+  optional int32 group_chat_id = 3;
+  int32 limit = 4;
+}
+
+message GetNewerDirectMessagesResponse {
+  repeated string messages_json = 1;
+}
+
+message FindConversationWithOtherUserRequest {
+  int32 user_id = 1;
+  int32 other_user_id = 2;
+}
+
+message FindConversationWithOtherUserResponse {
+  optional string direct_chat_json = 1;
+}
+
+message CreateNewDirectChatRequest {
+  int32 creator_id = 1;
+  int32 recipient_id = 2;
+}
+
+message CreateNewDirectChatResponse {
+  string new_direct_chat_json = 1;
+}
+
+message FindGroupChatMemberIdsRequest {
+  int32 group_chat_id = 1;
+}
+
+message FindGroupChatMemberIdsResponse {
+  repeated int32 member_ids = 1;
+}
+
+message CreateNewMessageRequest {
+  string encrypted_content = 1;
+  int32 author_id = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  string type = 4;
+  optional int32 recipient_id = 5;
+  optional int32 sticker_id = 6;
+  optional int32 media_id = 7;
+  optional int32 reply_to_id = 8;
+  optional int32 direct_chat_id = 9;
+  optional int32 group_chat_id = 10;
+}
+
+message CreateNewMessageResponse {
+  string new_message_json = 1;
+}
+
+message UpdateLastSentMessageRequest {
+  int32 last_sent_message_id = 1;
+  int32 direct_chat_id = 2;
+}
+
+message UpdateMessageStatusRequest {
+  int32 msg_id = 1;
+  string status = 2;
+}
+
+message UpdateMessageStatusResponse {
+  string message_json = 1;
+}
+
+message FindDirectChatByIdRequest {
+  int32 direct_chat_id = 1;
+}
+
+message FindDirectChatByIdResponse {
+  optional string direct_chat_json = 1;
+}
+
+message FindMemberInGroupChatRequest {
+  int32 group_chat_id = 1;
+  int32 user_id = 2;
+}
+
+message FindMemberInGroupChatResponse {
+  optional string group_chat_member_json = 1;
+}
+
+message CheckGroupChatPermissionRequest {
+  int32 group_chat_id = 1;
+  string permission = 2;
+}
+
+message CheckGroupChatPermissionResponse {
+  bool allowed = 1;
+}
+
+message FindMessagesForGlobalSearchRequest {
+  repeated int32 ids = 1;
+  int32 limit = 2;
+}
+
+message FindMessagesForGlobalSearchResponse {
+  repeated string messages_json = 1;
+}

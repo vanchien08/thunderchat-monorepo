@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package call;
+
+service CallService {
+  rpc Temp(TempRequest) returns (TempResponse);
+}
+
+message TempRequest {
+  string request_data = 1;
+}
+
+message TempResponse {
+  string response_data = 1;
+}

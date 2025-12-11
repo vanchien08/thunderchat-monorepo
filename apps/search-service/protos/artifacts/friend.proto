@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package friend;
+
+service FriendService {
+  rpc IsFriend(IsFriendRequest) returns (IsFriendResponse);
+}
+
+message IsFriendRequest {
+  int32 user_id = 1;
+  int32 friend_id = 2;
+}
+
+message IsFriendResponse {
+  bool is_friend = 1;
+}

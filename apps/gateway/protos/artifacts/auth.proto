@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package auth;
+
+import "google/protobuf/empty.proto";
+
+service AuthService {
+  rpc ValidateSocketConnection(ValidateSocketConnectionRequest)
+      returns (google.protobuf.Empty);
+  rpc ValidateSocketAuth(ValidateSocketAuthRequest)
+      returns (ValidateSocketAuthResponse);
+  rpc ValidateVoiceCallSocketAuth(ValidateVoiceCallSocketAuthRequest)
+      returns (ValidateVoiceCallSocketAuthResponse);
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+}
+
+service JWTService {
+  rpc CreateJWT(CreateJWTRequest) returns (CreateJWTResponse);
+  rpc GetJWTcookieOtps(google.protobuf.Empty)
+      returns (GetJWTcookieOtpsResponse);
+}
+
+service CredentialsService {
+  rpc CompareHashedPassword(CompareHashedPasswordRequest)
+      returns (CompareHashedPasswordResponse);
+  rpc GetHashedPassword(GetHashedPasswordRequest)
+      returns (GetHashedPasswordResponse);
+}
+
+message ValidateSocketConnectionRequest {
+  string socket_json = 1;
+}
+
+message ValidateSocketAuthRequest {
+  string client_socket_json = 1;
+}
+
+message ValidateSocketAuthResponse {
+  string client_socket_auth_json = 1;
+}
+
+message ValidateVoiceCallSocketAuthRequest {
+  string client_socket_json = 1;
+}
+
+message ValidateVoiceCallSocketAuthResponse {
+  string voice_call_socket_auth_json = 1;
+}
+
+message VerifyTokenRequest {
+  string token = 1;
+}
+
+message VerifyTokenResponse {
+  string user_json = 1;
+}
+
+message CreateJWTRequest {
+  string email = 1;
+  int32 user_id = 2;
+}
+
+message CreateJWTResponse {
+  string jwt_token = 1;
+}
+
+message SendClientJWTRequest {
+  string token = 1;
+  string cookie_otps_json = 2;
+}
+
+message CompareHashedPasswordRequest {
+  string password = 1;
+  string encrypted = 2;
+}
+
+message CompareHashedPasswordResponse {
+  bool is_valid = 1;
+}
+
+message GetHashedPasswordRequest {
+  string plain_password = 1;
+}
+
+message GetHashedPasswordResponse {
+  string hashed_password = 1;
+}
+
+message GetJWTcookieOtpsResponse {
+  string cookie_otps_json = 1;
+}

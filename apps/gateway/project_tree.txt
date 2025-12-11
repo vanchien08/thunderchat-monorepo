@@ -1,0 +1,364 @@
+Tree view of: F:\DO_ANTN\CLONE\thunderchat-server\thunderchat-server
+
+├── .env
+├── .env.development
+├── .eslintrc.js
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
+├── README.md
+├── add.cmd
+├── assets
+│   ├── auth
+│   │   └── guarded-routes.json
+│   └── routing
+│       └── api-gateway-routing.json
+├── check-ts.cmd
+├── dev.cmd
+├── environment.d.ts
+├── gen-db.cmd
+├── gen-sql.cmd
+├── logs
+│   ├── errors.log
+│   └── info.log
+├── mig-db.cmd
+├── nest-cli.json
+├── note.txt
+├── package.json
+├── pnpm-lock.yaml
+├── print_project_tree.py
+├── prisma
+│   ├── schema.prisma
+│   └── sql
+│       ├── countMessageMedia.sql
+│       ├── countMutualFriends.sql
+│       ├── explainStatement.sql
+│       └── getRandomGreetingSticker.sql
+├── project_tree.txt
+├── protos
+│   ├── artifacts
+│   │   ├── AI.proto
+│   │   ├── admin.proto
+│   │   ├── auth.proto
+│   │   ├── call.proto
+│   │   ├── chat.proto
+│   │   ├── conversation.proto
+│   │   ├── friend.proto
+│   │   ├── media.proto
+│   │   ├── notification.proto
+│   │   ├── search.proto
+│   │   └── user.proto
+│   └── generated
+│       ├── admin.ts
+│       ├── auth.ts
+│       ├── call.ts
+│       ├── chat.ts
+│       ├── conversation.ts
+│       ├── friend.ts
+│       ├── google
+│       │   └── protobuf
+│       │       ├── any.ts
+│       │       ├── empty.ts
+│       │       └── timestamp.ts
+│       ├── media.ts
+│       ├── notification.ts
+│       ├── search.ts
+│       └── user.ts
+├── rem.cmd
+├── routing
+│   └── api-gateway-routing.json
+├── secrets
+│   ├── private-key.pem
+│   └── public-certificate.pem
+├── src
+│   ├── admin
+│   │   ├── README.md
+│   │   ├── admin.controller.ts
+│   │   ├── admin.decorator.ts
+│   │   ├── admin.dto.ts
+│   │   ├── admin.exception-filter.ts
+│   │   ├── admin.guard.ts
+│   │   ├── admin.message-2.ts
+│   │   ├── admin.message.ts
+│   │   ├── admin.module.ts
+│   │   ├── admin.service.ts
+│   │   ├── admin.type.ts
+│   │   └── admin.utils.ts
+│   ├── app.interface.ts
+│   ├── app.middleware.ts
+│   ├── app.module.ts
+│   ├── auth
+│   │   ├── auth.controller.ts
+│   │   ├── auth.dto.ts
+│   │   ├── auth.guard.ts
+│   │   ├── auth.interface.ts
+│   │   ├── auth.message.ts
+│   │   ├── auth.module.ts
+│   │   ├── auth.service.ts
+│   │   ├── auth.type.ts
+│   │   ├── credentials
+│   │   │   └── credentials.service.ts
+│   │   ├── jwt
+│   │   │   ├── jwt.service.ts
+│   │   │   └── jwt.type.ts
+│   │   └── role
+│   │       └── group-chat
+│   │           ├── group-chat-role.decorator.ts
+│   │           ├── group-chat-role.enum.ts
+│   │           ├── group-chat-role.guard.ts
+│   │           └── group-chat-role.message.ts
+│   ├── bootstrap
+│   │   ├── copy-protos-folder.ts
+│   │   ├── init-auth-middleware.ts
+│   │   └── init-routing-middleware.ts
+│   ├── call
+│   │   ├── call.dto.ts
+│   │   ├── call.enum.ts
+│   │   ├── call.gateway.ts
+│   │   ├── call.interceptor.ts
+│   │   ├── call.interface.ts
+│   │   ├── call.message.ts
+│   │   ├── call.module.ts
+│   │   ├── call.service.ts
+│   │   └── call.type.ts
+│   ├── configs
+│   │   ├── communication
+│   │   │   └── grpc
+│   │   │       ├── grpc-client.config.ts
+│   │   │       ├── grpc-client.module.ts
+│   │   │       └── services
+│   │   │           └── auth.service.ts
+│   │   ├── db
+│   │   │   ├── prisma.module.ts
+│   │   │   └── prisma.service.ts
+│   │   ├── elasticsearch
+│   │   │   ├── elasticsearch.enum.ts
+│   │   │   ├── elasticsearch.module.ts
+│   │   │   ├── elasticsearch.service.ts
+│   │   │   ├── elasticsearch.type.ts
+│   │   │   └── sync-data-to-ES
+│   │   │       ├── sync-data-to-ES.dto.ts
+│   │   │       ├── sync-data-to-ES.message.ts
+│   │   │       ├── sync-data-to-ES.module.ts
+│   │   │       ├── sync-data-to-ES.service.ts
+│   │   │       └── sync-data-to-ES.worker.ts
+│   │   ├── logger
+│   │   │   ├── logger.module.ts
+│   │   │   └── logger.service.ts
+│   │   └── push-notification
+│   │       ├── push-notification.controller.ts
+│   │       ├── push-notification.dto.ts
+│   │       ├── push-notification.interface.ts
+│   │       ├── push-notification.module.ts
+│   │       ├── push-notification.service.ts
+│   │       └── push-notification.type.ts
+│   ├── connection
+│   │   ├── user-connection.module.ts
+│   │   ├── user-connection.service.ts
+│   │   ├── user-connection.type.ts
+│   │   └── voice-call-connection.service.ts
+│   ├── dev
+│   │   ├── dev-logger.ts
+│   │   ├── dev.controller.ts
+│   │   ├── dev.module.ts
+│   │   ├── helpers.ts
+│   │   └── temp.txt
+│   ├── direct-chat
+│   │   ├── direct-chat.controller.ts
+│   │   ├── direct-chat.dto.ts
+│   │   ├── direct-chat.interface.ts
+│   │   ├── direct-chat.message.ts
+│   │   ├── direct-chat.module.ts
+│   │   ├── direct-chat.service.ts
+│   │   └── direct-chat.type.ts
+│   ├── friend
+│   │   ├── friend.controller.ts
+│   │   ├── friend.dto.ts
+│   │   ├── friend.interface.ts
+│   │   ├── friend.message.ts
+│   │   ├── friend.module.ts
+│   │   ├── friend.service.ts
+│   │   └── friend.type.ts
+│   ├── friend-request
+│   │   ├── friend-request.controller.ts
+│   │   ├── friend-request.dto.ts
+│   │   ├── friend-request.enum.ts
+│   │   ├── friend-request.interface.ts
+│   │   ├── friend-request.message.ts
+│   │   ├── friend-request.module.ts
+│   │   ├── friend-request.service.ts
+│   │   └── friend-request.type.ts
+│   ├── group-chat
+│   │   ├── group-chat.controller.ts
+│   │   ├── group-chat.dto.ts
+│   │   ├── group-chat.enum.ts
+│   │   ├── group-chat.interface.ts
+│   │   ├── group-chat.message.ts
+│   │   ├── group-chat.module.ts
+│   │   ├── group-chat.service.ts
+│   │   ├── group-chat.type.ts
+│   │   ├── invite-code.service.ts
+│   │   └── join-requests.service.ts
+│   ├── group-member
+│   │   ├── group-member.controller.ts
+│   │   ├── group-member.dto.ts
+│   │   ├── group-member.interface.ts
+│   │   ├── group-member.message.ts
+│   │   ├── group-member.module.ts
+│   │   ├── group-member.service.ts
+│   │   └── group-member.type.ts
+│   ├── healthcheck
+│   │   ├── healthcheck.controller.ts
+│   │   ├── healthcheck.interface.ts
+│   │   ├── healthcheck.module.ts
+│   │   ├── healthcheck.service.ts
+│   │   └── healthcheck.type.ts
+│   ├── main.ts
+│   ├── message
+│   │   ├── can-send-message.helper.ts
+│   │   ├── delete-message
+│   │   │   ├── delete-message.controller.ts
+│   │   │   ├── delete-message.module.ts
+│   │   │   ├── delete-message.service.ts
+│   │   │   └── delete-message.type.ts
+│   │   ├── media-message
+│   │   │   ├── media-message.controller.ts
+│   │   │   ├── media-message.dto.ts
+│   │   │   ├── media-message.enum.ts
+│   │   │   ├── media-message.module.ts
+│   │   │   ├── media-message.service.ts
+│   │   │   └── media-message.type.ts
+│   │   ├── message.controller.ts
+│   │   ├── message.dto.ts
+│   │   ├── message.enum.ts
+│   │   ├── message.interface.ts
+│   │   ├── message.message.ts
+│   │   ├── message.module.ts
+│   │   ├── message.service.ts
+│   │   ├── message.type.ts
+│   │   ├── pin
+│   │   │   ├── pin.controller.ts
+│   │   │   ├── pin.dto.ts
+│   │   │   ├── pin.message.ts
+│   │   │   ├── pin.module.ts
+│   │   │   └── pin.service.ts
+│   │   ├── security
+│   │   │   └── es-message-encryptor.ts
+│   │   └── stickers
+│   │       ├── sticker.dto.ts
+│   │       ├── sticker.interface.ts
+│   │       ├── stickers.controller.ts
+│   │       ├── stickers.module.ts
+│   │       └── stickers.service.ts
+│   ├── message-mapping
+│   │   ├── message-mapping.module.ts
+│   │   ├── message-mapping.service.ts
+│   │   └── message-mapping.type.ts
+│   ├── messaging
+│   │   ├── helpers
+│   │   │   ├── conversation-typing.helper.ts
+│   │   │   └── message-tokens.helper.ts
+│   │   ├── messaging.dto.ts
+│   │   ├── messaging.enum.ts
+│   │   ├── messaging.gateway.ts
+│   │   ├── messaging.interceptor.ts
+│   │   ├── messaging.interface.ts
+│   │   ├── messaging.message.ts
+│   │   ├── messaging.module.ts
+│   │   └── messaging.type.ts
+│   ├── pin-conversation
+│   │   ├── pin-conversation.controller.ts
+│   │   ├── pin-conversation.dto.ts
+│   │   ├── pin-conversation.interface.ts
+│   │   ├── pin-conversation.message.ts
+│   │   ├── pin-conversation.module.ts
+│   │   ├── pin-conversation.service.ts
+│   │   └── pin-conversation.type.ts
+│   ├── profile
+│   │   ├── profile.controller.ts
+│   │   ├── profile.dto.ts
+│   │   ├── profile.module.ts
+│   │   └── profile.service.ts
+│   ├── search
+│   │   ├── search.controller.ts
+│   │   ├── search.dto.ts
+│   │   ├── search.interface.ts
+│   │   ├── search.message.ts
+│   │   ├── search.module.ts
+│   │   ├── search.service.ts
+│   │   └── search.type.ts
+│   ├── upload
+│   │   ├── file.service.ts
+│   │   ├── s3-upload.service.ts
+│   │   ├── thumbnail.service.ts
+│   │   ├── upload.controller.ts
+│   │   ├── upload.interface.ts
+│   │   ├── upload.module.ts
+│   │   ├── upload.service.ts
+│   │   └── upload.type.ts
+│   ├── user
+│   │   ├── block-user.service.ts
+│   │   ├── user-report
+│   │   │   ├── user-report.controller.ts
+│   │   │   ├── user-report.dto.ts
+│   │   │   ├── user-report.enum.ts
+│   │   │   ├── user-report.exception-filter.ts
+│   │   │   ├── user-report.interface.ts
+│   │   │   ├── user-report.message.ts
+│   │   │   ├── user-report.module.ts
+│   │   │   └── user-report.service.ts
+│   │   ├── user-settings
+│   │   │   ├── user-settings.controller.ts
+│   │   │   ├── user-settings.dto.ts
+│   │   │   ├── user-settings.interface.ts
+│   │   │   ├── user-settings.message.ts
+│   │   │   ├── user-settings.module.ts
+│   │   │   ├── user-settings.service.ts
+│   │   │   └── user-settings.type.ts
+│   │   ├── user.controller.ts
+│   │   ├── user.decorator.ts
+│   │   ├── user.dto.ts
+│   │   ├── user.interface.ts
+│   │   ├── user.message.ts
+│   │   ├── user.module.ts
+│   │   ├── user.service.ts
+│   │   └── user.type.ts
+│   └── utils
+│       ├── crypto
+│       │   └── symmetric-encryption.crypto.ts
+│       ├── entities
+│       │   ├── call-session.entity.ts
+│       │   ├── direct-chat.entity.ts
+│       │   ├── friend.entity.ts
+│       │   ├── group-chat-member.entity.ts
+│       │   ├── group-chat.entity.ts
+│       │   ├── message-mappings.entity.ts
+│       │   ├── message-media.entity.ts
+│       │   ├── message.entity.ts
+│       │   ├── pinned-chat.entity.ts
+│       │   ├── pinned-message.entity.ts
+│       │   ├── profile.entity.ts
+│       │   ├── push-notification-subscription.entity.ts
+│       │   ├── sticker.entity.ts
+│       │   └── user.entity.ts
+│       ├── enums.ts
+│       ├── events
+│       │   ├── event.type.ts
+│       │   └── socket.event.ts
+│       ├── exception-filters
+│       │   ├── base-http-exception.filter.ts
+│       │   └── base-ws-exception.filter.ts
+│       ├── exceptions
+│       │   ├── base-http.exception.ts
+│       │   ├── base-ws.exception.ts
+│       │   ├── custom-error.ts
+│       │   └── system.exception.ts
+│       ├── helpers.ts
+│       ├── messages.ts
+│       ├── types.ts
+│       └── validation
+│           ├── env.validation.ts
+│           ├── gateway.validation.ts
+│           └── transformers.ts
+├── tsconfig.build.json
+└── tsconfig.json

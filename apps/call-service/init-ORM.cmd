@@ -1,0 +1,1 @@
+./add.cmd --save-dev prisma && ./add.cmd @prisma/client

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "watchAssets": true,
+    "assets": [
+      { "include": "src/**/*.json", "outDir": "" },
+      { "include": "src/**/*.yaml", "outDir": "" },
+
+      { "include": "protos/**/*.proto", "outDir": "protos" },
+
+      { "include": ".env", "outDir": "" },
+      { "include": ".env.*", "outDir": "" },
+
+      { "include": "routing/**/*.json", "outDir": "routing" }
+    ]
+  },
+  "watch": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

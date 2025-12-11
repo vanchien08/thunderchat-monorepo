@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package AI;
+
+// Service API
+service MessageEmbeddingService {
+  // Tạo embedding từ text plaintext
+  rpc CreateEmbedding (CreateEmbeddingRequest) returns (CreateEmbeddingResponse);
+
+  // Lưu embedding tương ứng với message_id
+  rpc SaveMessageEmbedding (SaveMessageEmbeddingRequest) returns (SaveMessageEmbeddingResponse);
+}
+
+// --- Request / Response Definitions ---
+
+message CreateEmbeddingRequest {
+  string text = 1; // Nội dung tin nhắn plaintext
+}
+
+message CreateEmbeddingResponse {
+  repeated float embedding = 1; // Vector embedding (1536 chiều)
+}
+
+message SaveMessageEmbeddingRequest {
+  int64 message_id = 1; // ID của tin nhắn trong bảng messages
+  repeated float embedding = 2; // Vector đã tạo
+}
+
+message SaveMessageEmbeddingResponse {
+  bool success = 1;
+}

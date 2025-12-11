@@ -1,0 +1,116 @@
+{
+  "routes": [
+    {
+      "path": "/auth",
+      "target": "http://localhost:4001",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/user",
+      "target": "http://localhost:4002",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/friend",
+      "target": "http://localhost:4003",
+      "rewrite": {
+        "^/api/friend": "/api/friend"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/friend-request",
+      "target": "http://localhost:4003",
+      "rewrite": {
+        "^/api/friend-request": "/api/friend-request"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/push-notification",
+      "target": "http://localhost:4004",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/search",
+      "target": "http://localhost:4005",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/message",
+      "target": "http://localhost:4006",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/upload",
+      "target": "http://localhost:4007",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/admin",
+      "target": "http://localhost:4009",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/direct-chat",
+      "target": "http://localhost:4010",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/group-chat",
+      "target": "http://localhost:4010",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/group-member",
+      "target": "http://localhost:4010",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/message",
+      "target": "http://localhost:4010",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    },
+    {
+      "path": "/pin-conversation",
+      "target": "http://localhost:4010",
+      "rewrite": {
+        "^/": "/"
+      },
+      "changeOrigin": true
+    }
+  ]
+}

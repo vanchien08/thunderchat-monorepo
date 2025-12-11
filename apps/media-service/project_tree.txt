@@ -1,0 +1,56 @@
+Tree view of: D:\D-Documents\Code_VCN\React\VCN-THUNDER-CHAT-APP\MS\media-service
+
+├── .env
+├── .eslintrc.js
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
+├── README.md
+├── add.cmd
+├── check-ts.cmd
+├── dev.cmd
+├── environment.d.ts
+├── gen-proto.cmd
+├── gen-sql.cmd
+├── mig-db.cmd
+├── nest-cli.json
+├── package.json
+├── pnpm-lock.yaml
+├── print_project_tree.py
+├── prisma
+│   ├── schema.prisma
+│   └── sql
+│       ├── countMessageMedia.sql
+│       ├── countMutualFriends.sql
+│       ├── explainStatement.sql
+│       └── getRandomGreetingSticker.sql
+├── project_tree.txt
+├── rem.cmd
+├── src
+│   ├── app.module.ts
+│   ├── configs
+│   │   ├── db
+│   │   │   ├── prisma.module.ts
+│   │   │   └── prisma.service.ts
+│   │   └── logger
+│   │       ├── logger.module.ts
+│   │       └── logger.service.ts
+│   ├── dev
+│   │   └── dev-logger.ts
+│   ├── main.ts
+│   ├── media-service
+│   │   ├── file.service.ts
+│   │   ├── s3-upload.service.ts
+│   │   ├── temp-images
+│   │   ├── thumbnail.service.ts
+│   │   ├── upload.controller.ts
+│   │   ├── upload.interface.ts
+│   │   ├── upload.service.ts
+│   │   └── upload.type.ts
+│   └── utils
+│       ├── enums.ts
+│       └── helpers.ts
+├── tsconfig.build.json
+├── tsconfig.json
+└── types
+    └── ffmpeg-installer__ffmpeg.d.ts

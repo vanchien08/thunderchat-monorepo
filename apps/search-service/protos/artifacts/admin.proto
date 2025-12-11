@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package admin;
+
+service AdminService {
+  rpc GetExample(ExampleRequest) returns (ExampleResponse);
+}
+
+message ExampleRequest {
+  string request_data = 1;
+}
+
+message ExampleResponse {
+  string response_data = 1;
+}
