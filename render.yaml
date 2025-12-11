@@ -161,4 +161,3 @@ databases:
   - name: thunderchat-db
     databaseName: thunderchat
     user: thunderchat
-    plan: starter
