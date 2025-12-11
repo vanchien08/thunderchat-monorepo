@@ -15,6 +15,7 @@
     "build:admin": "cd apps/admin-service && npm install && npm run build",
     "build:voice-assistant": "cd apps/voice-assistant-service && npm install && npm run build",
     "build:all": "for dir in apps/*/; do cd \"$dir\" && npm install && npm run build && cd ../..; done",
+    "start:prod": "cd apps/gateway && npm run start:prod",
     "start:gateway": "cd apps/gateway && npm run start:prod",
     "start:user-auth": "cd apps/user-auth-service && npm run start:prod",
     "start:chat": "cd apps/chat-service && npm run start:prod",
