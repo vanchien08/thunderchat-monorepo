@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "cd apps/gateway && npm install && npm run build",
     "build:gateway": "cd apps/gateway && npm install && npm run build",
     "build:user-auth": "cd apps/user-auth-service && npm install && npm run build",
     "build:chat": "cd apps/chat-service && npm install && npm run build",
