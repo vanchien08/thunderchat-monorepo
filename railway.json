@@ -1,0 +1,100 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "services": [
+    {
+      "name": "gateway",
+      "buildCommand": "cd apps/gateway && npm install && npm run build",
+      "startCommand": "cd apps/gateway && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "user-auth-service",
+      "buildCommand": "cd apps/user-auth-service && npm install && npm run build",
+      "startCommand": "cd apps/user-auth-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "chat-service",
+      "buildCommand": "cd apps/chat-service && npm install && npm run build",
+      "startCommand": "cd apps/chat-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "call-service",
+      "buildCommand": "cd apps/call-service && npm install && npm run build",
+      "startCommand": "cd apps/call-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "search-service",
+      "buildCommand": "cd apps/search-service && npm install && npm run build",
+      "startCommand": "cd apps/search-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "notification-service",
+      "buildCommand": "cd apps/notification-service && npm install && npm run build",
+      "startCommand": "cd apps/notification-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "conversation-service",
+      "buildCommand": "cd apps/conversation-service && npm install && npm run build",
+      "startCommand": "cd apps/conversation-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "media-service",
+      "buildCommand": "cd apps/media-service && npm install && npm run build",
+      "startCommand": "cd apps/media-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "admin-service",
+      "buildCommand": "cd apps/admin-service && npm install && npm run build",
+      "startCommand": "cd apps/admin-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "name": "voice-assistant-service",
+      "buildCommand": "cd apps/voice-assistant-service && npm install && npm run build",
+      "startCommand": "cd apps/voice-assistant-service && npm run start:prod",
+      "variables": {
+        "PORT": "3000",
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "plugins": [
+    {
+      "source": "railway/postgres"
+    }
+  ]
+}
