@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common'
 import { GrpcMethod } from '@nestjs/microservices'
-import { SyncDataToESService } from './sync-data-to-ES/sync-data-to-es.service'
+import { SyncDataToESService } from './sync-data-to-ES/sync-data-to-ES.service'
 import { DataToSync } from 'protos/generated/search'
 import { EGrpcServices } from '@/utils/enums'
 import type { IElasticSearchGrpcController } from './elasticsearch.interface'
