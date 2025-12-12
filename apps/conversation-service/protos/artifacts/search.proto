@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package search;
+
+import "google/protobuf/empty.proto";
+
+service ElasticSearchService {
+  rpc SyncDataToES(DataToSync) returns (google.protobuf.Empty);
+}
+
+service MessageMappingsService {
+  rpc CreateMessageMappings(CreateMessageMappingsRequest)
+      returns (CreateMessageMappingsResponse);
+  rpc GetMessageMappings(google.protobuf.Empty)
+      returns (GetMessageMappingsResponse);
+  rpc UpdateMessageMappings(UpdateMessageMappingsRequest)
+      returns (UpdateMessageMappingsResponse);
+  
+}
+
+service MessageEmbeddingService {
+
+  rpc CreateEmbedding (CreateEmbeddingRequest) returns (CreateEmbeddingResponse);
+
+ 
+  rpc SaveMessageEmbedding (SaveMessageEmbeddingRequest) returns (SaveMessageEmbeddingResponse);
+}
+
+message DataToSync {
+  string data_to_sync_json = 2;
+}
+
+message CreateMessageMappingsRequest {
+  string mappings = 1;
+  string encryption_key = 2;
+}
+
+message CreateMessageMappingsResponse {
+  string message_mappings_json = 1;
+}
+
+message GetMessageMappingsResponse {
+  optional string message_mappings_json = 1;
+}
+
+message UpdateMessageMappingsRequest {
+  string mappings = 1;
+  optional string encryption_key_if_create = 2;
+}
+
+message UpdateMessageMappingsResponse {
+  string message_mappings_json = 1;
+}
+
+
+message CreateEmbeddingRequest {
+  string text = 1; 
+}
+
+message CreateEmbeddingResponse {
+  repeated float embedding = 1; 
+}
+
+message SaveMessageEmbeddingRequest {
+  int64 message_id = 1; 
+  repeated float embedding = 2;
+  string meta_data = 3;
+}
+
+message SaveMessageEmbeddingResponse {
+  bool success = 1;
+}

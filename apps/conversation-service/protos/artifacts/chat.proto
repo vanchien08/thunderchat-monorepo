@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package chat;
+
+import "google/protobuf/empty.proto";
+
+service UserConnectionService {
+  rpc GetConnectedClientsCountForAdmin(google.protobuf.Empty)
+      returns (ConnectedClientsCountResponse);
+  rpc EmitToDirectChat(EmitToDirectChatRequest) returns (google.protobuf.Empty);
+  rpc SendNewMessageToGroupChat(SendNewMessageToGroupChatRequest)
+      returns (google.protobuf.Empty);
+  rpc SendFriendRequest(SendFriendRq) returns (google.protobuf.Empty);
+  rpc RemoveConnectedClient(RemoveConnectedClientRequest)
+      returns (google.protobuf.Empty);
+  rpc CheckUserIsOnline(CheckUserIsOnlineRequest)
+      returns (CheckUserIsOnlineResponse);
+  rpc FriendRequestAction(FriendRequestActionRequest)
+      returns (google.protobuf.Empty);
+  // --- Event Emitter ---
+  rpc UpdateGroupChatInfo(UpdateGroupChatInfoRequest)
+      returns (google.protobuf.Empty);
+  rpc CreateGroupChat(CreateGroupChatRequest) returns (google.protobuf.Empty);
+  rpc AddMembersToGroupChat(AddMembersToGroupChatRequest)
+      returns (google.protobuf.Empty);
+  rpc RemoveGroupChatMembers(RemoveGroupChatMembersRequest)
+      returns (google.protobuf.Empty);
+  rpc DeleteGroupChat(DeleteGroupChatRequest) returns (google.protobuf.Empty);
+  rpc MemberLeaveGroupChat(MemberLeaveGroupChatRequest)
+      returns (google.protobuf.Empty);
+  rpc UpdateUserInfo(UpdateUserInfoRequest) returns (google.protobuf.Empty);
+}
+
+message ConnectedClientsCountResponse {
+  int32 count = 1;
+}
+
+message EmitToDirectChatRequest {
+  string event = 1;
+  int32 direct_chat_id = 2;
+  string payload_json = 3;
+}
+
+message SendNewMessageToGroupChatRequest {
+  int32 group_chat_id = 2;
+  string new_message_json = 3;
+}
+
+message SendFriendRq {
+  string sender_json = 1;
+  int32 recipientId = 2;
+  string requestData_json = 3;
+}
+
+message RemoveConnectedClientRequest {
+  int32 userId = 1;
+  optional string socketId = 2;
+}
+
+message CheckUserIsOnlineRequest {
+  int32 userId = 1;
+}
+
+message CheckUserIsOnlineResponse {
+  bool is_online = 1;
+}
+
+message FriendRequestActionRequest {
+  int32 sender_id = 1;
+  int32 request_id = 2;
+  string action = 3;
+}
+
+message UpdateGroupChatInfoRequest {
+  int32 group_chat_id = 1;
+  string group_name = 2;
+  string group_avatar_url = 3;
+}
+
+message CreateGroupChatRequest {
+  string group_chat_json = 1;
+  repeated int32 member_ids = 2;
+  string creator_json = 3;
+}
+
+message AddMembersToGroupChatRequest {
+  string group_chat_json = 1;
+  repeated int32 member_ids = 2;
+  string executor_json = 3;
+}
+
+message RemoveGroupChatMembersRequest {
+  string group_chat_json = 1;
+  repeated int32 member_ids = 2;
+}
+
+message DeleteGroupChatRequest {
+  int32 group_chat_id = 1;
+}
+
+message MemberLeaveGroupChatRequest {
+  int32 group_chat_id = 1;
+  int32 user_id = 2;
+}
+
+message UpdateUserInfoRequest {
+  int32 user_id = 1;
+  string updates_json = 2;
+}
