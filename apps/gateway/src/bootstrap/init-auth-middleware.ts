@@ -34,18 +34,18 @@ export const initAuthMiddleware = (app: NestExpressApplication, apiPrefix: strin
     for (const { path } of routes) {
       app.use(`/${apiPrefix}${path}`, async (req: Request, res: Response, next: NextFunction) => {
         const headerAuth = (req.headers['authorization'] || req.headers['Authorization']) as string
-
+console.log('>>> [use] Authorization header:', headerAuth)
         if (!headerAuth) {
           return next(new UnauthorizedException(EAuthMessages.INVALID_HEADER))
         }
         const token = headerAuth.split(' ')[1]
-
+console.log('>>> [use] Extracted token:', token)
         if (!token) {
           return next(new UnauthorizedException(EAuthMessages.TOKEN_NOT_FOUND))
         }
         try {
           const user = await authService.verifyToken(token)
-
+console.log('>>> [use] Verified user from token:', user)
           req.user = user
           next()
         } catch (error) {

@@ -39,16 +39,18 @@ export const initRouting = (app: NestExpressApplication, apiPrefix: string) => {
           followRedirects: false,
           on: {
             proxyReq: (proxyReq, req, res) => {
+              console.log(`>>> [use] Proxying request to ${serviceName}: ${target} ,,, ${req.url}`)
               // Preserve HTTP method
               proxyReq.method = req.method
+              console.log(`>>> [use] Preserved HTTP method: ${proxyReq.method}`)
               
               addXUserDataHeader(proxyReq, req)
-              DevLogger.logInfo(
-                `Proxying ${req.method} request from ${req['user']} to ${serviceName}: ${target + req.url}`
+              console.log(
+                `>>> [use] Proxying ${req.method} request from ${req['user']} to ${serviceName}: ${target + req.url}`
               )
             },
             proxyRes: (proxyRes, req, res) => {
-              DevLogger.logInfo(`Received response from ${serviceName}: ${proxyRes.statusCode}`)
+              console.log(`>>> [use] Received response from ${serviceName}: ${proxyRes.statusCode}`)
             },
           },
         })
