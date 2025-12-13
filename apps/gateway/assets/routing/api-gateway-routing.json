@@ -1,7 +1,7 @@
 {
   "services": {
     "auth": {
-      "target": "http://thunderchat-user-auth-production.up.railway.app",
+      "target": "https://thunderchat-user-auth-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
@@ -13,7 +13,7 @@
       ]
     },
     "user": {
-      "target": "http://thunderchat-user-auth-production.up.railway.app",
+      "target": "https://thunderchat-user-auth-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
@@ -40,7 +40,7 @@
       ]
     },
     "friendship": {
-      "target": "http://thunderchat-user-auth-production.up.railway.app",
+      "target": "https://thunderchat-user-auth-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
@@ -57,7 +57,7 @@
       ]
     },
     "notification": {
-      "target": "http://thunderchat-notification-production.up.railway.app",
+      "target": "https://thunderchat-notification-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
@@ -69,7 +69,7 @@
       ]
     },
     "voice-assistant": {
-      "target": "http://thunderchat-voice-production.up.railway.app",
+      "target": "https://thunderchat-voice-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
@@ -81,7 +81,7 @@
       ]
     },
     "search": {
-      "target": "http://thunderchat-search-production.up.railway.app",
+      "target": "https://thunderchat-search-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 15000,
       "routes": [
@@ -98,13 +98,13 @@
       ]
     },
     "chat": {
-      "target": "http://thunderchat-chat-production.up.railway.app",
+      "target": "https://thunderchat-chat-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 30000,
       "routes": []
     },
     "media": {
-      "target": "http://thunderchat-media-production.up.railway.app",
+      "target": "https://thunderchat-media-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 120000,
       "routes": [
@@ -116,13 +116,13 @@
       ]
     },
     "call": {
-      "target": "http://thunderchat-call-production.up.railway.app",
+      "target": "https://thunderchat-call-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 30000,
       "routes": []
     },
     "admin": {
-      "target": "http://thunderchat-admin-production.up.railway.app",
+      "target": "https://thunderchat-admin-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 15000,
       "routes": [
@@ -134,7 +134,7 @@
       ]
     },
     "conversation": {
-      "target": "http://thunderchat-conversation-production.up.railway.app",
+      "target": "https://thunderchat-conversation-production.up.railway.app",
       "healthCheck": "/health",
       "timeout": 10000,
       "routes": [
