@@ -28,6 +28,7 @@ export class UserController implements IUserController {
 
   @Post('register')
   async register(@Body() createUserPayload: CreateUserDTO) {
+    console.log('>>> [use] register payload:', createUserPayload)
     const { jwt_token } = await this.userService.registerUser(createUserPayload)
     return { jwt_token }
   }

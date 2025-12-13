@@ -98,7 +98,7 @@ export class DevLogger {
   static logIncomingRequest(req: Request) {
     queueMicrotask(() => {
       const logMessage =
-        `Coming Request: ${req.method} ${req.url}
+        `[use] Coming Request: ${req.method} ${req.url}
           +) Headers: ${JSON.stringify(req.headers, null, 2)}
           +) Params: ${JSON.stringify(req.params, null, 2)}
           +) Query: ${JSON.stringify(req.query, null, 2)}
