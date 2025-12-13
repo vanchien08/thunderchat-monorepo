@@ -41,9 +41,9 @@ export const initRouting = (app: NestExpressApplication, apiPrefix: string) => {
             proxyReq: (proxyReq, req, res) => {
               console.log(`>>> [use] Proxying request to ${serviceName}: ${target} ,,, ${req.url}`)
               // Preserve HTTP method
-              proxyReq.method = req.method
+              proxyReq.method = req.method as any
               console.log(`>>> [use] Preserved HTTP method: ${proxyReq.method}`)
-              
+
               addXUserDataHeader(proxyReq, req)
               console.log(
                 `>>> [use] Proxying ${req.method} request from ${req['user']} to ${serviceName}: ${target + req.url}`
