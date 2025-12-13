@@ -27,10 +27,7 @@ export class UserService {
     @Inject(EProviderTokens.PRISMA_CLIENT) private PrismaService: PrismaService,
     private jwtService: JWTService,
     private credentialService: CredentialService
-  ) {
-    const res = this.PrismaService.user.findFirst()
-    console.log('>>> [use] user res:', res)
-  }
+  ) {}
 
   // In-memory store for OTP/reset-token
   private static inMemoryKeyValueStore: Map<string, string> = new Map()

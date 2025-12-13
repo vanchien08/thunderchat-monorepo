@@ -18,6 +18,8 @@ export class PrismaService
     try {
       await this.$connect()
       console.log('>>> Connect DB successfully')
+      const res = await this.user.findFirst() // Test query
+      console.log('>>> [use] query result:', res)
     } catch (error) {
       console.log('>>> DB connection error >>>', error)
     }
