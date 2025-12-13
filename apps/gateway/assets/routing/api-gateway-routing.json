@@ -7,7 +7,7 @@
       "routes": [
         {
           "path": "/auth",
-          "rewrite": { "^/auth": "/api/auth" },
+          "rewrite": { "^/": "/api/auth/" },
           "changeOrigin": true
         }
       ]
@@ -19,22 +19,22 @@
       "routes": [
         {
           "path": "/user",
-          "rewrite": { "^/user": "/api/user" },
+          "rewrite": { "^/": "/api/user/" },
           "changeOrigin": true
         },
         {
           "path": "/user-settings",
-          "rewrite": { "^/user-settings": "/api/user-settings" },
+          "rewrite": { "^/": "/api/user-settings/" },
           "changeOrigin": true
         },
         {
           "path": "/user-report",
-          "rewrite": { "^/user-report": "/api/user-report" },
+          "rewrite": { "^/": "/api/user-report/" },
           "changeOrigin": true
         },
         {
           "path": "/profile",
-          "rewrite": { "^/profile": "/api/profile" },
+          "rewrite": { "^/": "/api/profile/" },
           "changeOrigin": true
         }
       ]
