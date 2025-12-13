@@ -7,7 +7,7 @@
       "routes": [
         {
           "path": "/auth",
-          "rewrite": { "^/": "/api/auth/" },
+          "rewrite": { "^/": "/api/auth" },
           "changeOrigin": true
         }
       ]
@@ -19,22 +19,22 @@
       "routes": [
         {
           "path": "/user",
-          "rewrite": { "^/": "/api/user/" },
+          "rewrite": { "^/": "/api/user" },
           "changeOrigin": true
         },
         {
           "path": "/user-settings",
-          "rewrite": { "^/": "/api/user-settings/" },
+          "rewrite": { "^/": "/api/user-settings" },
           "changeOrigin": true
         },
         {
           "path": "/user-report",
-          "rewrite": { "^/": "/api/user-report/" },
+          "rewrite": { "^/": "/api/user-report" },
           "changeOrigin": true
         },
         {
           "path": "/profile",
-          "rewrite": { "^/": "/api/profile/" },
+          "rewrite": { "^/": "/api/profile" },
           "changeOrigin": true
         }
       ]
@@ -46,12 +46,12 @@
       "routes": [
         {
           "path": "/friend",
-          "rewrite": { "^/": "/api/friend/" },
+          "rewrite": { "^/": "/api/friend" },
           "changeOrigin": true
         },
         {
           "path": "/friend-request",
-          "rewrite": { "^/": "/api/friend-request/" },
+          "rewrite": { "^/": "/api/friend-request" },
           "changeOrigin": true
         }
       ]
@@ -63,7 +63,7 @@
       "routes": [
         {
           "path": "/push-notification",
-          "rewrite": { "^/": "/api/push-notification/" },
+          "rewrite": { "^/": "/api/push-notification" },
           "changeOrigin": true
         }
       ]
@@ -75,7 +75,7 @@
       "routes": [
         {
           "path": "/voice-assistant",
-          "rewrite": { "^/": "/api/voice-assistant/" },
+          "rewrite": { "^/": "/api/voice-assistant" },
           "changeOrigin": true
         }
       ]
@@ -87,12 +87,12 @@
       "routes": [
         {
           "path": "/search",
-          "rewrite": { "^/": "/api/search/" },
+          "rewrite": { "^/": "/api/search" },
           "changeOrigin": true
         },
         {
           "path": "/smart-search",
-          "rewrite": { "^/": "/api/smart-search/" },
+          "rewrite": { "^/": "/api/smart-search" },
           "changeOrigin": true
         }
       ]
@@ -110,7 +110,7 @@
       "routes": [
         {
           "path": "/upload",
-          "rewrite": { "^/": "/api/upload/" },
+          "rewrite": { "^/": "/api/upload" },
           "changeOrigin": true
         }
       ]
@@ -128,7 +128,7 @@
       "routes": [
         {
           "path": "/admin",
-          "rewrite": { "^/": "/api/admin/" },
+          "rewrite": { "^/": "/api/admin" },
           "changeOrigin": true
         }
       ]
@@ -140,47 +140,47 @@
       "routes": [
         {
           "path": "/media-message",
-          "rewrite": { "^/": "/api/media-message/" },
+          "rewrite": { "^/": "/api/media-message" },
           "changeOrigin": true
         },
         {
           "path": "/sticker",
-          "rewrite": { "^/": "/api/sticker/" },
+          "rewrite": { "^/": "/api/sticker" },
           "changeOrigin": true
         },
         {
           "path": "/direct-chat",
-          "rewrite": { "^/": "/api/direct-chat/" },
+          "rewrite": { "^/": "/api/direct-chat" },
           "changeOrigin": true
         },
         {
           "path": "/group-chat",
-          "rewrite": { "^/": "/api/group-chat/" },
+          "rewrite": { "^/": "/api/group-chat" },
           "changeOrigin": true
         },
         {
           "path": "/group-member",
-          "rewrite": { "^/": "/api/group-member/" },
+          "rewrite": { "^/": "/api/group-member" },
           "changeOrigin": true
         },
         {
           "path": "/message",
-          "rewrite": { "^/": "/api/message/" },
+          "rewrite": { "^/": "/api/message" },
           "changeOrigin": true
         },
         {
           "path": "/delete-message",
-          "rewrite": { "^/": "/api/delete-message/" },
+          "rewrite": { "^/": "/api/delete-message" },
           "changeOrigin": true
         },
         {
           "path": "/pin",
-          "rewrite": { "^/": "/api/pin/" },
+          "rewrite": { "^/": "/api/pin" },
           "changeOrigin": true
         },
         {
           "path": "/pin-conversation",
-          "rewrite": { "^/": "/api/pin-conversation/" },
+          "rewrite": { "^/": "/api/pin-conversation" },
           "changeOrigin": true
         }
       ]
