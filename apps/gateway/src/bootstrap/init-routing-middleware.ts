@@ -28,31 +28,26 @@ export const initRouting = (app: NestExpressApplication, apiPrefix: string) => {
   for (const serviceName in services) {
     const { routes, timeout, target } = services[serviceName]
     for (const { path, rewrite, changeOrigin } of routes) {
-      const mountPath = `/${apiPrefix}${path}`
-      console.log(`>>> [GATEWAY] Registering proxy route: ${mountPath} -> ${target}`)
-      console.log(`>>> [GATEWAY] Rewrite rule:`, rewrite)
-      
       app.use(
-        mountPath,
-        (req, res, next) => {
-          console.log(`>>> [GATEWAY] Matched route ${mountPath} for request: ${req.method} ${req.originalUrl}`)
-          next()
-        },
+        `/${apiPrefix}${path}`,
         createProxyMiddleware({
           target,
           changeOrigin,
           timeout,
           pathRewrite: rewrite,
+          preserveHeaderKeyCase: true,
+          followRedirects: false,
           on: {
             proxyReq: (proxyReq, req, res) => {
+              // Preserve HTTP method
+              proxyReq.method = req.method
+              
               addXUserDataHeader(proxyReq, req)
-              console.log(`>>> [GATEWAY] Proxying ${req.method} ${req.url} to ${target}${proxyReq.path}`)
               DevLogger.logInfo(
-                `Proxying request from ${req['user']} to ${serviceName}: ${target + req.url}`
+                `Proxying ${req.method} request from ${req['user']} to ${serviceName}: ${target + req.url}`
               )
             },
             proxyRes: (proxyRes, req, res) => {
-              console.log(`>>> [GATEWAY] Response from ${serviceName}: ${proxyRes.statusCode}`)
               DevLogger.logInfo(`Received response from ${serviceName}: ${proxyRes.statusCode}`)
             },
           },
