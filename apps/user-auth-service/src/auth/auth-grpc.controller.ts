@@ -63,28 +63,35 @@ export class AuthGrpcController implements IAuthGrpcController {
 
   @GrpcMethod(EGrpcServices.AUTH_SERVICE, 'VerifyToken')
   async VerifyToken(data: VerifyTokenRequest): Promise<TVerifyTokenRes> {
+    console.log('>>> [auth-v] VerifyToken called with data:', data)
     let payload: TJWTPayload
     let user: TUserWithProfile | null | undefined
     try {
       payload = await this.jwtService.verifyToken(data.token)
     } catch (error) {
+      console.error('>>> [auth-v] Error verifying token:', error)
       throw new UnauthorizedException(EAuthMessages.AUTHENTICATION_FAILED)
     }
     try {
       user = await this.userService.findUserWithProfileById(payload.user_id)
     } catch (error) {
+      console.error('>>> [auth-v] Error fetching user:', error)
       throw new UnauthorizedException(EAuthMessages.AUTHENTICATION_FAILED)
     }
     if (!user) {
+      console.error('>>> [auth-v] User not found for ID:', user)
       throw new UnauthorizedException(EAuthMessages.USER_NOT_FOUND)
     }
     if (!user.Profile) {
+      console.error('>>> [auth-v] User has no profile for ID:', user)
       throw new InternalServerErrorException(EAuthMessages.USER_HAS_NO_PROFILE)
     }
     const banResult = await this.authService.checkUserBanStatus(user.id)
     if (banResult.isBanned) {
+      console.error('>>> [auth-v] User is banned:', banResult)
       throw new UnauthorizedException(banResult.message || EAuthMessages.USER_BANNED)
     }
+    console.log('>>> [auth-v] VerifyToken successful for user ID:', user)
     return {
       userJson: JSON.stringify(user),
     }
