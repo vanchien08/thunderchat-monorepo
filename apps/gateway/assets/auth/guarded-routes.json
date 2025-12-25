@@ -3,7 +3,9 @@
     "auth": {
       "routes": [
         { "path": "/auth/logout" },
-        { "path": "/auth/admin/logout" }
+          { "path": "/auth/admin/logout" },
+              { "path": "/auth/check-auth" },
+              { "path": "/auth/admin/check-auth" }
       ]
     },
     "user": {
