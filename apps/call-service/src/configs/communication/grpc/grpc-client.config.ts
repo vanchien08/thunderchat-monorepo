@@ -11,7 +11,7 @@ export class GrpcClientConfig {
         options: {
           package: EGrpcPackages.AUTH,
           protoPath: join(__dirname, '/../../../../protos/artifacts/', 'auth.proto'),
-          url: `localhost:${process.env.AUTH_SERVICE_PORT}`,
+          url: `${process.env.AUTH_SERVICE_PORT}`,
         },
       }),
     }

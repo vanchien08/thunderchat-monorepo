@@ -14,7 +14,7 @@ export class GrpcClientConfig {
           '../../../../protos/artifacts/',
           'friend.proto',
         ),
-        url: `localhost:${process.env.FRIEND_SERVICE_PORT}`,
+        url: `${process.env.FRIEND_SERVICE_PORT}`,
       },
     };
   }
@@ -30,7 +30,7 @@ export class GrpcClientConfig {
           '../../../../protos/artifacts/',
           'conversation.proto',
         ),
-        url: `localhost:${process.env.CONVERSATION_SERVICE_PORT}`,
+        url: `${process.env.CONVERSATION_SERVICE_PORT}`,
       },
     };
   }
@@ -46,7 +46,7 @@ export class GrpcClientConfig {
           '/../../../../protos/artifacts/',
           'auth.proto',
         ),
-        url: `localhost:${process.env.AUTH_SERVICE_PORT}`,
+        url: `${process.env.AUTH_SERVICE_PORT}`,
       },
     };
   }
@@ -62,7 +62,7 @@ export class GrpcClientConfig {
           '/../../../../protos/artifacts/',
           'user.proto',
         ),
-        url: `localhost:${process.env.USER_SERVICE_PORT}`,
+        url: `${process.env.USER_SERVICE_PORT}`,
       },
     };
   }
@@ -78,7 +78,7 @@ export class GrpcClientConfig {
           '/../../../../protos/artifacts/',
           'notification.proto',
         ),
-        url: `localhost:${process.env.NOTIFICATION_SERVICE_PORT}`,
+        url: `${process.env.NOTIFICATION_SERVICE_PORT}`,
       },
     };
   }

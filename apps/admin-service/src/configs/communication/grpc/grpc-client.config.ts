@@ -11,7 +11,7 @@ export class GrpcClientConfig {
         options: {
           package: EGrpcPackages.CHAT,
           protoPath: join(__dirname, '/../../../../protos/artifacts/', 'chat.proto'),
-          url: `localhost:${process.env.CHAT_SERVICE_PORT}`,
+          url: `${process.env.CHAT_SERVICE_PORT}`,
         },
       }),
     }
@@ -25,7 +25,7 @@ export class GrpcClientConfig {
         options: {
           package: EGrpcPackages.MEDIA,
           protoPath: join(__dirname, '/../../../../protos/artifacts/', 'media.proto'),
-          url: `localhost:${process.env.MEDIA_SERVICE_PORT}`,
+          url: `${process.env.MEDIA_SERVICE_PORT}`,
         },
       }),
     }
