@@ -37,7 +37,7 @@ export const initAuthMiddleware = (app: NestExpressApplication, apiPrefix: strin
     for (const { path } of routes) {
       app.use(`/${apiPrefix}${path}`, async (req: Request, res: Response, next: NextFunction) => {
         const headerAuth = (req.headers['authorization'] || req.headers['Authorization']) as string
-        console.log('>>> [auth-v] Auth Middleware Invoked for path:', headerAuth)
+        console.log('>>> [auth-v] Auth Middleware Invoked for:', req.path, '| Auth:', headerAuth)
         if (!headerAuth) {
           return next(new UnauthorizedException(EAuthMessages.INVALID_HEADER))
         }
