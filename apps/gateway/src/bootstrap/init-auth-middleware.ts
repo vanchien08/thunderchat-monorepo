@@ -17,13 +17,16 @@ export const initAuthMiddleware = (app: NestExpressApplication, apiPrefix: strin
 
   const { AUTH_SERVICE_PORT } = process.env
 
+  // Railway internal networking: use service name without https://
+  const grpcUrl = process.env.AUTH_GRPC_URL || `127.0.0.1:${AUTH_SERVICE_PORT}`
+
   const authService = new AuthService(
     ClientProxyFactory.create({
       transport: Transport.GRPC,
       options: {
         package: EGrpcPackages.AUTH,
         protoPath: join(__dirname, '../../protos/artifacts/', 'auth.proto'),
-        url: `localhost:${AUTH_SERVICE_PORT}`,
+        url: grpcUrl,
       },
     }).getService(EGrpcServices.AUTH_SERVICE)
   )
